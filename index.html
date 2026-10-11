@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บทเรียนออนไลน์: การใช้เทคโนโลยีสารสนเทศอย่างปลอดภัย (วิทยาการคำนวณ ม.1 - Pastel Edition)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            50: 'var(--pastel-50)',
+                            100: 'var(--pastel-100)',
+                            200: 'var(--pastel-200)',
+                            300: 'var(--pastel-300)',
+                            400: 'var(--pastel-400)',
+                            500: 'var(--pastel-500)',
+                            600: 'var(--pastel-600)',
+                            700: 'var(--pastel-700)',
+                            800: 'var(--pastel-800)',
+                            900: 'var(--pastel-900)',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Sarabun', 'sans-serif'],
+                        heading: ['Prompt', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'pastel': '0 10px 30px -10px var(--pastel-shadow)',
+                        'pastel-sm': '0 4px 15px -3px var(--pastel-shadow)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            /* Default: Pastel Mint Palette */
+            --pastel-50: #f0fdf4;
+            --pastel-100: #dcfce7;
+            --pastel-200: #bbf7d0;
+            --pastel-300: #86efac;
+            --pastel-400: #4ade80;
+            --pastel-500: #22c55e;
+            --pastel-600: #16a34a;
+            --pastel-700: #15803d;
+            --pastel-800: #166534;
+            --pastel-900: #14532d;
+            --pastel-shadow: rgba(34, 197, 94, 0.18);
+            --pastel-bg-accent: #f4fbf7;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        /* Smooth pastel gradients */
+        .pastel-banner-gradient {
+            background: linear-gradient(135deg, var(--pastel-100) 0%, var(--pastel-50) 50%, #ffffff 100%);
+        }
+        .dark .pastel-banner-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, var(--pastel-900) 50%, #1e1b4b 100%);
+        }
+
+        .pastel-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pastel-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px -8px var(--pastel-shadow);
+        }
+
+        /* Custom scrollbar for soft pastel look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--pastel-300);
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50/80 text-slate-700 dark:bg-slate-950 dark:text-slate-200 antialiased min-h-screen flex flex-col selection:bg-pastel-200 selection:text-pastel-900">
+
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-pastel-100 dark:border-slate-800 shadow-pastel-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                
+                <!-- Brand Logo & Header Info -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-pastel-300 via-pastel-400 to-pastel-500 flex items-center justify-center text-white font-bold text-lg shadow-pastel">
+                        <i class="fas fa-shield-cat"></i>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-heading font-semibold text-pastel-700 dark:text-pastel-300 bg-pastel-100 dark:bg-pastel-900/80 px-2 py-0.5 rounded-full">วิทยาการคำนวณ ม.1</span>
+                        <h1 class="text-sm sm:text-base font-heading font-bold text-slate-800 dark:text-white leading-tight">การใช้เทคโนโลยีสารสนเทศอย่างปลอดภัย</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Bar -->
+                <nav class="hidden lg:flex space-x-1 text-sm font-medium">
+                    <a href="#welcome" class="px-3.5 py-2 rounded-xl hover:bg-pastel-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-pastel-800 transition">หน้าแรก</a>
+                    <a href="#lessons" class="px-3.5 py-2 rounded-xl hover:bg-pastel-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-pastel-800 transition">บทเรียนพาสเทล</a>
+                    <a href="#quiz" class="px-3.5 py-2 rounded-xl hover:bg-pastel-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-pastel-800 transition">ควิซก่อนเรียน</a>
+                    <a href="#risk-checker" class="px-3.5 py-2 rounded-xl hover:bg-pastel-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-pastel-800 transition">เช็กความเสี่ยง</a>
+                    <a href="#board" class="px-3.5 py-2 rounded-xl hover:bg-pastel-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-pastel-800 transition">เว็บบอร์ด</a>
+                </nav>
+
+                <!-- Pastel Theme Chooser Controls -->
+                <div class="flex items-center space-x-2">
+                    
+                    <!-- Dark / Soft Night Mode Button -->
+                    <button onclick="toggleDarkMode()" title="เปลี่ยนโหมดกลางวัน/กลางคืน" class="p-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-amber-500 transition border border-slate-200 dark:border-slate-700">
+                        <i id="theme-mode-icon" class="fas fa-sun text-base"></i>
+                    </button>
+
+                    <!-- Pastel Palette Dropdown Toggle -->
+                    <div class="relative">
+                        <button onclick="toggleColorMenu()" title="เลือกโทนสีพาสเทล" class="px-3 py-2 rounded-2xl bg-pastel-100 dark:bg-slate-800 hover:bg-pastel-200 text-pastel-800 dark:text-pastel-200 transition border border-pastel-200 dark:border-slate-700 flex items-center space-x-2 font-heading text-xs font-semibold shadow-sm">
+                            <i class="fas fa-palette text-sm text-pastel-600 dark:text-pastel-400"></i>
+                            <span class="hidden sm:inline">ธีมสีพาสเทล</span>
+                            <i class="fas fa-chevron-down text-[10px] opacity-60"></i>
+                        </button>
+
+                        <!-- Pastel Color Palette Selector -->
+                        <div id="color-menu" class="hidden absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl p-3 z-50 space-y-1.5 transition-all">
+                            <div class="text-[11px] font-heading font-bold text-slate-400 uppercase tracking-wider px-2 py-1">🎨 จานสีพาสเทล (Pastel Colors)</div>
+                            
+                            <button onclick="setPastelTheme('sakura')" class="w-full flex items-center justify-between px-3 py-2 rounded-2xl hover:bg-rose-50 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 transition">
+                                <div class="flex items-center space-x-2.5">
+                                    <span class="w-4 h-4 rounded-full bg-rose-300 border border-rose-400 inline-block shadow-sm"></span>
+                                    <span>Pastel Sakura (ชมพูซากุระ)</span>
+                                </div>
+                                <span class="text-[10px] text-rose-400 font-bold">🌸</span>
+                            </button>
+
+                            <button onclick="setPastelTheme('mint')" class="w-full flex items-center justify-between px-3 py-2 rounded-2xl hover:bg-emerald-50 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 transition">
+                                <div class="flex items-center space-x-2.5">
+                                    <span class="w-4 h-4 rounded-full bg-emerald-300 border border-emerald-400 inline-block shadow-sm"></span>
+                                    <span>Pastel Mint (เขียวมิ้นต์)</span>
+                                </div>
+                                <span class="text-[10px] text-emerald-400 font-bold">🌿</span>
+                            </button>
+
+                            <button onclick="setPastelTheme('lavender')" class="w-full flex items-center justify-between px-3 py-2 rounded-2xl hover:bg-purple-50 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 transition">
+                                <div class="flex items-center space-x-2.5">
+                                    <span class="w-4 h-4 rounded-full bg-purple-300 border border-purple-400 inline-block shadow-sm"></span>
+                                    <span>Pastel Lavender (ม่วงใส)</span>
+                                </div>
+                                <span class="text-[10px] text-purple-400 font-bold">💜</span>
+                            </button>
+
+                            <button onclick="setPastelTheme('sky')" class="w-full flex items-center justify-between px-3 py-2 rounded-2xl hover:bg-sky-50 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 transition">
+                                <div class="flex items-center space-x-2.5">
+                                    <span class="w-4 h-4 rounded-full bg-sky-300 border border-sky-400 inline-block shadow-sm"></span>
+                                    <span>Pastel Sky (ฟ้าก้อนเมฆ)</span>
+                                </div>
+                                <span class="text-[10px] text-sky-400 font-bold">☁️</span>
+                            </button>
+
+                            <button onclick="setPastelTheme('peach')" class="w-full flex items-center justify-between px-3 py-2 rounded-2xl hover:bg-orange-50 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 transition">
+                                <div class="flex items-center space-x-2.5">
+                                    <span class="w-4 h-4 rounded-full bg-orange-300 border border-orange-400 inline-block shadow-sm"></span>
+                                    <span>Pastel Peach (ส้มพีช)</span>
+                                </div>
+                                <span class="text-[10px] text-orange-400 font-bold">🍑</span>
+                            </button>
+
+                            <button onclick="setPastelTheme('butter')" class="w-full flex items-center justify-between px-3 py-2 rounded-2xl hover:bg-amber-50 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 transition">
+                                <div class="flex items-center space-x-2.5">
+                                    <span class="w-4 h-4 rounded-full bg-amber-300 border border-amber-400 inline-block shadow-sm"></span>
+                                    <span>Pastel Butter (เหลืองเนย)</span>
+                                </div>
+                                <span class="text-[10px] text-amber-500 font-bold">🍋</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="lg:hidden p-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200">
+                        <i class="fas fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-4 space-y-1.5 text-sm font-medium">
+            <a href="#welcome" class="block px-3.5 py-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-pastel-100 dark:hover:bg-slate-800">หน้าแรก</a>
+            <a href="#lessons" class="block px-3.5 py-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-pastel-100 dark:hover:bg-slate-800">บทเรียนพาสเทล</a>
+            <a href="#quiz" class="block px-3.5 py-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-pastel-100 dark:hover:bg-slate-800">ควิซก่อนเรียน</a>
+            <a href="#risk-checker" class="block px-3.5 py-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-pastel-100 dark:hover:bg-slate-800">เช็กความเสี่ยง</a>
+            <a href="#board" class="block px-3.5 py-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-pastel-100 dark:hover:bg-slate-800">กระดานแลกเปลี่ยนเรียนรู้</a>
+        </div>
+    </header>
+
+    <section id="welcome" class="pastel-banner-gradient py-12 lg:py-16 relative overflow-hidden transition-all duration-500 border-b border-pastel-100 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center space-x-2 bg-white/80 dark:bg-slate-800/80 border border-pastel-200 dark:border-slate-700 text-pastel-700 dark:text-pastel-300 px-4 py-1.5 rounded-full text-xs font-heading font-semibold shadow-pastel-sm backdrop-blur-sm">
+                        <i class="fas fa-sparkles text-amber-400"></i>
+                        <span>ขั้นเตรียมการเรียนรู้รูปแบบ Online (Pastel Edition)</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold tracking-tight leading-snug text-slate-800 dark:text-white">
+                        คิดก่อนคลิก <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-pastel-600 via-pastel-500 to-indigo-400">ท่องโลกออนไลน์อย่างปลอดภัย</span>
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+                        ยินดีต้อนรับนักเรียน ม.1 เข้าสู่เว็บไซต์เตรียมความพร้อมก่อนเข้าคาบเรียน! อ่านสรุปบทเรียน ทดลองใช้เครื่องมือ และร่วมแลกเปลี่ยนความคิดเห็นกับเพื่อนๆ ได้เลยครับ
+                    </p>
+                    
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <div class="flex items-center space-x-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur px-4 py-2.5 rounded-2xl border border-pastel-200 dark:border-slate-700 shadow-sm">
+                            <i class="far fa-clock text-pastel-600 dark:text-pastel-400 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200">เวลาเตรียมตัว: <strong class="text-pastel-700 dark:text-pastel-300 font-bold">15 - 20 นาที</strong></span>
+                        </div>
+                        <a href="#lessons" class="inline-flex items-center space-x-2 bg-pastel-500 hover:bg-pastel-600 text-white font-heading font-bold px-6 py-2.5 rounded-2xl transition shadow-pastel hover:scale-[1.02] active:scale-95">
+                            <span>เริ่มศึกษาบทเรียน</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Discussion/Lead-in Question Box -->
+                <div class="lg:col-span-5">
+                    <div class="bg-white/90 dark:bg-slate-800/90 border border-pastel-200 dark:border-slate-700/80 rounded-3xl p-6 shadow-pastel backdrop-blur-sm space-y-4">
+                        <div class="flex items-center space-x-3 text-amber-500">
+                            <div class="w-10 h-10 rounded-2xl bg-amber-100 dark:bg-amber-950/60 flex items-center justify-center font-bold text-amber-600 dark:text-amber-400">
+                                <i class="fas fa-lightbulb text-xl"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-lg text-slate-800 dark:text-white">คำถามชวนคิดก่อนเรียน</h3>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed bg-pastel-50 dark:bg-slate-900/60 p-4 rounded-2xl border border-pastel-100 dark:border-slate-700/50">
+                            <strong class="text-pastel-700 dark:text-pastel-300 font-heading">"สถานการณ์:"</strong> หากมีเพื่อนในเกม หรือคนที่รู้จักกันบนโซเชียล ทักมาขอ <span class="bg-amber-100 dark:bg-amber-950 px-2 py-0.5 rounded text-amber-800 dark:text-amber-300 font-bold">"รหัสผ่าน"</span> หรือ <span class="bg-amber-100 dark:bg-amber-950 px-2 py-0.5 rounded text-amber-800 dark:text-amber-300 font-bold">"เลขบัตรประชาชน"</span> นักเรียนจะทำอย่างไร?
+                        </p>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-700/60">
+                            <span>💡 หาคำตอบได้ในบทเรียนนี้!</span>
+                            <a href="#board" class="text-pastel-600 dark:text-pastel-400 hover:underline flex items-center space-x-1 font-bold">
+                                <span>ตอบในเว็บบอร์ด</span>
+                                <i class="fas fa-chevron-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="lessons" class="py-12 lg:py-16 bg-slate-50/50 dark:bg-slate-950 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                <div>
+                    <span class="text-pastel-600 dark:text-pastel-400 font-heading font-semibold text-xs tracking-wider uppercase">Pastel Online Lessons</span>
+                    <h2 class="text-2xl sm:text-3xl font-heading font-bold text-slate-800 dark:text-white mt-1">บทเรียนเตรียมความพร้อม (4 หัวข้อหลัก)</h2>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-2 md:mt-0">อ่านทำความเข้าใจและคลิกทำเครื่องหมายเมื่อศึกษาเสร็จแล้ว</p>
+            </div>
+
+            <!-- Grid of 4 Topics -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Topic 1 -->
+                <div class="pastel-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm relative overflow-hidden">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="px-3 py-1 bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 text-xs font-heading font-bold rounded-full">หัวข้อที่ 1</span>
+                        <h3 class="text-xl font-heading font-bold text-slate-800 dark:text-white">ภัยคุกคามจากการใช้เทคโนโลยีสารสนเทศ</h3>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm mb-6 leading-relaxed">
+                        ภัยออนไลน์ในปัจจุบันมีหลายรูปแบบ ซึ่งอาจสร้างความเสียหายแก่ข้อมูล เครื่องคอมพิวเตอร์ หรือจิตใจได้:
+                    </p>
+                    <div class="space-y-3.5">
+                        <div class="flex items-start space-x-3 p-3.5 bg-rose-50/70 dark:bg-rose-950/30 rounded-2xl border border-rose-100 dark:border-rose-900/40">
+                            <i class="fas fa-bug text-rose-500 mt-1 text-lg"></i>
+                            <div>
+                                <h4 class="font-heading font-bold text-slate-800 dark:text-slate-200 text-sm">Malware (มัลแวร์ / ไวรัส)</h4>
+                                <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">โปรแกรมประสงค์ร้ายที่แฝงมากับไฟล์ดาวน์โหลด ลิงก์แปลกปลอม เพื่อทำลายระบบหรือขโมยข้อมูล</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3 p-3.5 bg-amber-50/70 dark:bg-amber-950/30 rounded-2xl border border-amber-100 dark:border-amber-900/40">
+                            <i class="fas fa-fish-fins text-amber-500 mt-1 text-lg"></i>
+                            <div>
+                                <h4 class="font-heading font-bold text-slate-800 dark:text-slate-200 text-sm">Phishing (การหลอกเอาข้อมูล)</h4>
+                                <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">การสร้างเว็บปลอม หรือข้อความหลอกลวงเพื่อให้เรากรอกรหัสผ่าน รหัส OTP หรือข้อมูลการเงิน</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3 p-3.5 bg-purple-50/70 dark:bg-purple-950/30 rounded-2xl border border-purple-100 dark:border-purple-900/40">
+                            <i class="fas fa-comments text-purple-500 mt-1 text-lg"></i>
+                            <div>
+                                <h4 class="font-heading font-bold text-slate-800 dark:text-slate-200 text-sm">Cyberbullying (การรังแกออนไลน์)</h4>
+                                <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">การใช้สื่อโซเชียลด่าทอ ประจาน หรือสร้างข่าวเท็จใส่ร้ายผู้อื่นให้ได้รับความเสียหาย</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-400">สถานะบทเรียน:</span>
+                        <button onclick="markLessonComplete(1)" id="btn-lesson-1" class="text-xs bg-slate-100 dark:bg-slate-800 hover:bg-pastel-500 hover:text-white font-heading font-bold text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl transition">
+                            <i class="fas fa-check mr-1"></i> ทำเครื่องหมายว่าอ่านแล้ว
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Topic 2 -->
+                <div class="pastel-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm relative overflow-hidden">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="px-3 py-1 bg-sky-100 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 text-xs font-heading font-bold rounded-full">หัวข้อที่ 2</span>
+                        <h3 class="text-xl font-heading font-bold text-slate-800 dark:text-white">การปกป้องความเป็นส่วนตัว (Privacy & PDPA)</h3>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm mb-6 leading-relaxed">
+                        ข้อมูลส่วนบุคคลเป็นสิ่งสำคัญ หากหลุดไปถึงมือนักต้มตุ๋น อาจถูกนำไปสวมรอยกระทำความผิดได้:
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                        <div class="bg-rose-50/80 dark:bg-rose-950/30 border border-rose-200/70 dark:border-rose-900/40 p-3.5 rounded-2xl">
+                            <div class="font-heading font-bold text-rose-700 dark:text-rose-300 text-xs mb-1 flex items-center">
+                                <i class="fas fa-ban mr-1.5"></i> ห้ามโพสต์สาธารณะ!
+                            </div>
+                            <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+                                <li>เลขบัตรประชาชน / รหัสนักเรียน</li>
+                                <li>รหัสผ่าน (Password / PIN)</li>
+                                <li>พิกัดที่อยู่บ้านแบบ Real-time</li>
+                                <li>สมุดบัญชีธนาคาร / บัตรเครดิต</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-emerald-50/80 dark:bg-emerald-950/30 border border-emerald-200/70 dark:border-emerald-900/40 p-3.5 rounded-2xl">
+                            <div class="font-heading font-bold text-emerald-700 dark:text-emerald-300 text-xs mb-1 flex items-center">
+                                <i class="fas fa-shield-check mr-1.5"></i> สิ่งที่ควรปฏิบัติ
+                            </div>
+                            <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+                                <li>ตั้งค่าโซเชียลเป็น "ส่วนตัว"</li>
+                                <li>เช็กสิทธิ์แอปก่อนกดอนุญาต</li>
+                                <li>ออกจากระบบคอมฯ สาธารณะ</li>
+                                <li>ไม่รับเพื่อนที่ไม่รู้จักตัวจริง</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="p-3.5 bg-pastel-50 dark:bg-slate-800 rounded-2xl border border-pastel-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300">
+                        <i class="fas fa-info-circle text-pastel-600 dark:text-pastel-400 mr-1"></i> <strong>ข้อควรรู้สำหรับ ม.1:</strong> พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA) ให้สิทธิ์เราในการปกป้องข้อมูลของเรา และเราต้องไม่นำภาพผู้อื่นไปโพสต์ประจานด้วย
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-400">สถานะบทเรียน:</span>
+                        <button onclick="markLessonComplete(2)" id="btn-lesson-2" class="text-xs bg-slate-100 dark:bg-slate-800 hover:bg-pastel-500 hover:text-white font-heading font-bold text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl transition">
+                            <i class="fas fa-check mr-1"></i> ทำเครื่องหมายว่าอ่านแล้ว
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Topic 3: Interactive Password Checker Widget -->
+                <div class="pastel-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm relative overflow-hidden">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <span class="px-3 py-1 bg-pastel-100 dark:bg-pastel-950/80 text-pastel-800 dark:text-pastel-300 text-xs font-heading font-bold rounded-full">หัวข้อที่ 3</span>
+                        <h3 class="text-xl font-heading font-bold text-slate-800 dark:text-white">การตั้งรหัสผ่านที่ปลอดภัย (Password)</h3>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm mb-4">
+                        ทดลองพิมพ์รหัสผ่านจำลอง เพื่อวัดความแข็งแกร่ง (ระบบไม่บันทึกรหัสผ่านของคุณ):
+                    </p>
+
+                    <!-- Interactive Tool Widget -->
+                    <div class="bg-slate-900 text-white p-5 rounded-2xl space-y-4 shadow-inner">
+                        <div>
+                            <label class="block text-xs font-heading text-slate-300 font-medium mb-1.5">ทดลองป้อนรหัสผ่านจำลอง:</label>
+                            <div class="relative">
+                                <input type="password" id="pass-input" oninput="checkPasswordStrength()" placeholder="พิมพ์รหัสผ่านที่นี่..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-pastel-400">
+                                <button type="button" onclick="togglePassVisibility()" class="absolute right-3.5 top-2.5 text-slate-400 hover:text-white text-sm">
+                                    <i id="pass-eye" class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Strength Meter Bar -->
+                        <div>
+                            <div class="flex justify-between items-center text-xs mb-1.5">
+                                <span class="text-slate-400">ระดับความปลอดภัย:</span>
+                                <span id="pass-score-text" class="font-bold text-slate-300">กรุณาพิมพ์รหัสผ่าน</span>
+                            </div>
+                            <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-700">
+                                <div id="pass-meter" class="h-full w-0 bg-slate-600 rounded-full transition-all duration-300"></div>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Checklists -->
+                        <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+                            <div id="rule-length" class="text-slate-500 flex items-center space-x-1">
+                                <i class="fas fa-circle text-[8px] mr-1"></i> ยาว 8 ตัวอักษรขึ้นไป
+                            </div>
+                            <div id="rule-upper" class="text-slate-500 flex items-center space-x-1">
+                                <i class="fas fa-circle text-[8px] mr-1"></i> มีตัวพิมพ์ใหญ่ (A-Z)
+                            </div>
+                            <div id="rule-number" class="text-slate-500 flex items-center space-x-1">
+                                <i class="fas fa-circle text-[8px] mr-1"></i> มีตัวเลข (0-9)
+                            </div>
+                            <div id="rule-special" class="text-slate-500 flex items-center space-x-1">
+                                <i class="fas fa-circle text-[8px] mr-1"></i> มีอักขระพิเศษ (@, #, $)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-xs text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 p-2.5 rounded-xl border border-amber-200 dark:border-amber-900/40">
+                        <i class="fas fa-triangle-exclamation mr-1"></i> <strong>ข้อห้าม:</strong> อย่าใช้เบอร์โทรศัพท์, วันเกิด, หรือคำง่ายๆ เช่น 12345678, password
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-400">สถานะบทเรียน:</span>
+                        <button onclick="markLessonComplete(3)" id="btn-lesson-3" class="text-xs bg-slate-100 dark:bg-slate-800 hover:bg-pastel-500 hover:text-white font-heading font-bold text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl transition">
+                            <i class="fas fa-check mr-1"></i> ทำเครื่องหมายว่าอ่านแล้ว
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Topic 4 -->
+                <div class="pastel-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm relative overflow-hidden">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="px-3 py-1 bg-purple-100 dark:bg-purple-950/80 text-purple-700 dark:text-purple-300 text-xs font-heading font-bold rounded-full">หัวข้อที่ 4</span>
+                        <h3 class="text-xl font-heading font-bold text-slate-800 dark:text-white">มารยาทและจริยธรรมในโลกดิจิทัล (Netiquette)</h3>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm mb-4 leading-relaxed">
+                        การเป็นพลเมืองดิจิทัลที่ดี (Good Digital Citizen) ควรปฏิบัติตามหลักจริยธรรมดังนี้:
+                    </p>
+
+                    <div class="space-y-3">
+                        <div class="flex items-start space-x-3 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-2xl">
+                            <div class="w-6 h-6 rounded-full bg-pastel-200 dark:bg-pastel-900 text-pastel-800 dark:text-pastel-200 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</div>
+                            <p class="text-slate-700 dark:text-slate-300 text-xs sm:text-sm"><strong class="text-slate-900 dark:text-white font-heading">ให้เกียรติและใช้ภาษาสุภาพ:</strong> พิมพ์สื่อสารเสมือนคุยต่อหน้า ไม่ใช้คำหยาบหรือยุยงให้เกิดความเกลียดชัง</p>
+                        </div>
+                        <div class="flex items-start space-x-3 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-2xl">
+                            <div class="w-6 h-6 rounded-full bg-pastel-200 dark:bg-pastel-900 text-pastel-800 dark:text-pastel-200 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</div>
+                            <p class="text-slate-700 dark:text-slate-300 text-xs sm:text-sm"><strong class="text-slate-900 dark:text-white font-heading">เคารพสิทธิและลิขสิทธิ์:</strong> อ้างอิงแหล่งที่มาเสมอเมื่อนำรูปหรือข้อความของผู้อื่นมาใช้ ไม่แอบอ้างงานผู้อื่น</p>
+                        </div>
+                        <div class="flex items-start space-x-3 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-2xl">
+                            <div class="w-6 h-6 rounded-full bg-pastel-200 dark:bg-pastel-900 text-pastel-800 dark:text-pastel-200 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</div>
+                            <p class="text-slate-700 dark:text-slate-300 text-xs sm:text-sm"><strong class="text-slate-900 dark:text-white font-heading">ไม่ส่งต่อข่าวปลอม (Fake News):</strong> ตรวจสอบความถูกต้องจากแหล่งข่าวทางการ ก่อนกดแชร์ข่าวเสมอ</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-400">สถานะบทเรียน:</span>
+                        <button onclick="markLessonComplete(4)" id="btn-lesson-4" class="text-xs bg-slate-100 dark:bg-slate-800 hover:bg-pastel-500 hover:text-white font-heading font-bold text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl transition">
+                            <i class="fas fa-check mr-1"></i> ทำเครื่องหมายว่าอ่านแล้ว
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz" class="py-12 lg:py-16 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <span class="px-3 py-1 bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 text-xs font-heading font-bold rounded-full">Pastel Pre-Test Quiz</span>
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold text-slate-800 dark:text-white mt-2">แบบทดสอบวัดความรู้ก่อนเรียน (5 ข้อ)</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-1">เลือกคำตอบที่ถูกต้องเพื่อวัดความรู้ก่อนเข้าเรียน ตรวจคำตอบได้ทันที!</p>
+            </div>
+
+            <!-- Quiz Box Container -->
+            <div class="bg-pastel-50/50 dark:bg-slate-950 border border-pastel-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-pastel">
+                
+                <!-- Quiz Progress Header -->
+                <div class="flex justify-between items-center pb-4 mb-6 border-b border-slate-200 dark:border-slate-800">
+                    <span id="quiz-question-number" class="text-sm font-heading font-bold text-pastel-700 dark:text-pastel-300">ข้อที่ 1 จาก 5</span>
+                    <span id="quiz-score-display" class="text-xs font-heading font-bold bg-white dark:bg-slate-800 px-3 py-1 rounded-full text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">คะแนนปัจจุบัน: 0</span>
+                </div>
+
+                <!-- Dynamic Question Content -->
+                <div id="quiz-container">
+                    <h3 id="quiz-question" class="text-lg font-heading font-bold text-slate-800 dark:text-white mb-6 leading-snug">กำลังโหลดคำถาม...</h3>
+                    <div id="quiz-options" class="space-y-3 mb-6">
+                        <!-- Options generated via JS -->
+                    </div>
+                </div>
+
+                <!-- Answer Explanation Feedback -->
+                <div id="quiz-feedback" class="hidden p-4 rounded-2xl text-sm mb-6 transition-all">
+                    <!-- Dynamic feedback content -->
+                </div>
+
+                <!-- Quiz Navigation / Controls -->
+                <div class="flex justify-between items-center pt-4 border-t border-slate-200 dark:border-slate-800">
+                    <button id="btn-prev-q" onclick="navigateQuiz(-1)" class="px-4 py-2 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl text-xs sm:text-sm font-heading font-bold transition border border-slate-200 dark:border-slate-700 disabled:opacity-40" disabled>
+                        <i class="fas fa-chevron-left mr-1"></i> ข้อก่อนหน้า
+                    </button>
+                    <button id="btn-next-q" onclick="navigateQuiz(1)" class="px-5 py-2 bg-pastel-500 text-white hover:bg-pastel-600 rounded-xl text-xs sm:text-sm font-heading font-bold transition shadow-pastel">
+                        ข้อถัดไป <i class="fas fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Final Result Modal/Box -->
+            <div id="quiz-summary" class="hidden mt-6 bg-slate-900 border border-slate-800 text-white p-6 sm:p-8 rounded-3xl text-center shadow-2xl">
+                <div class="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 mx-auto flex items-center justify-center text-3xl mb-3">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3 class="text-2xl font-heading font-bold">ทำแบบทดสอบก่อนเรียนเสร็จสิ้น!</h3>
+                <p class="text-slate-300 text-xs sm:text-sm mt-1">คุณได้ทำกิจกรรมทดสอบก่อนเข้าสู่ชั้นเรียนเรียบร้อยแล้ว</p>
+                <div class="text-4xl font-heading font-extrabold text-amber-300 my-4" id="final-score-text">5 / 5</div>
+                <p id="quiz-eval-msg" class="text-sm text-slate-300 mb-6">ยอดเยี่ยมมาก! คุณมีความพร้อมสูงมากสำหรับคาบเรียนนี้</p>
+                <button onclick="resetQuiz()" class="px-6 py-2.5 bg-pastel-500 hover:bg-pastel-600 text-white font-heading font-bold rounded-2xl text-xs sm:text-sm transition shadow-pastel">
+                    <i class="fas fa-rotate-right mr-1.5"></i> ทำแบบทดสอบอีกครั้ง
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="risk-checker" class="py-12 lg:py-16 bg-slate-50/50 dark:bg-slate-950 transition-colors">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="px-3 py-1 bg-sky-100 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300 text-xs font-heading font-bold rounded-full">Interactive Activity</span>
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold text-slate-800 dark:text-white mt-2">กิจกรรม "เช็กความชัวร์ ก่อนแชร์"</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-1">อ่านสถานการณ์แล้วเลือกว่ากิจกรรมนี้ "ปลอดภัย" หรือ "เสี่ยงภัย"</p>
+            </div>
+
+            <div class="space-y-6" id="scenarios-list">
+                
+                <!-- Scenario 1 -->
+                <div class="pastel-card bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-start space-x-3.5 mb-4">
+                        <div class="w-9 h-9 bg-pastel-100 dark:bg-slate-800 text-pastel-700 dark:text-pastel-300 rounded-2xl flex items-center justify-center font-heading font-bold text-sm shrink-0 shadow-sm">1</div>
+                        <div>
+                            <h3 class="font-heading font-bold text-slate-800 dark:text-white text-base">สถานการณ์: SMS แจ้งโชคดีได้รับทุนการศึกษาฟรี</h3>
+                            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm mt-1 leading-relaxed">
+                                มีข้อความส่งเข้ามาในโทรศัพท์ว่า <em>"ยินดีด้วย! คุณได้รับทุนการศึกษา 5,000 บาท กดลิงก์ด่วนเพื่อลงทะเบียนรับเงิน http://bit.ly/fake-gift"</em>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3 pt-2">
+                        <button onclick="checkScenario(1, 'risk')" class="px-4 py-2 bg-rose-100 dark:bg-rose-950/80 hover:bg-rose-200 dark:hover:bg-rose-900 text-rose-800 dark:text-rose-200 font-heading font-bold text-xs rounded-xl transition flex items-center space-x-1.5">
+                            <i class="fas fa-triangle-exclamation"></i>
+                            <span>เสี่ยงภัย / ไม่ควรกด</span>
+                        </button>
+                        <button onclick="checkScenario(1, 'safe')" class="px-4 py-2 bg-emerald-100 dark:bg-emerald-950/80 hover:bg-emerald-200 dark:hover:bg-emerald-900 text-emerald-800 dark:text-emerald-200 font-heading font-bold text-xs rounded-xl transition flex items-center space-x-1.5">
+                            <i class="fas fa-shield-check"></i>
+                            <span>ปลอดภัย / กรอกข้อมูลได้</span>
+                        </button>
+                    </div>
+                    <div id="scen-res-1" class="hidden mt-4 p-3.5 rounded-2xl text-xs"></div>
+                </div>
+
+                <!-- Scenario 2 -->
+                <div class="pastel-card bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-start space-x-3.5 mb-4">
+                        <div class="w-9 h-9 bg-pastel-100 dark:bg-slate-800 text-pastel-700 dark:text-pastel-300 rounded-2xl flex items-center justify-center font-heading font-bold text-sm shrink-0 shadow-sm">2</div>
+                        <div>
+                            <h3 class="font-heading font-bold text-slate-800 dark:text-white text-base">สถานการณ์: ถ่ายรูปบัตรประจำตัวสอบโพสต์ลงโซเชียล</h3>
+                            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm mt-1 leading-relaxed">
+                                เพื่อนในชั้นเรียนถ่ายรูปบัตรประจำตัวสอบของตนเอง ซึ่งมีเลขประจำตัวประชาชน 13 หลักชัดเจน ลงในสตอรี่ Instagram
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3 pt-2">
+                        <button onclick="checkScenario(2, 'risk')" class="px-4 py-2 bg-rose-100 dark:bg-rose-950/80 hover:bg-rose-200 dark:hover:bg-rose-900 text-rose-800 dark:text-rose-200 font-heading font-bold text-xs rounded-xl transition flex items-center space-x-1.5">
+                            <i class="fas fa-triangle-exclamation"></i>
+                            <span>เสี่ยงภัย / ไม่ควรทำ</span>
+                        </button>
+                        <button onclick="checkScenario(2, 'safe')" class="px-4 py-2 bg-emerald-100 dark:bg-emerald-950/80 hover:bg-emerald-200 dark:hover:bg-emerald-900 text-emerald-800 dark:text-emerald-200 font-heading font-bold text-xs rounded-xl transition flex items-center space-x-1.5">
+                            <i class="fas fa-shield-check"></i>
+                            <span>ปลอดภัย / โพสต์ได้</span>
+                        </button>
+                    </div>
+                    <div id="scen-res-2" class="hidden mt-4 p-3.5 rounded-2xl text-xs"></div>
+                </div>
+
+                <!-- Scenario 3 -->
+                <div class="pastel-card bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-start space-x-3.5 mb-4">
+                        <div class="w-9 h-9 bg-pastel-100 dark:bg-slate-800 text-pastel-700 dark:text-pastel-300 rounded-2xl flex items-center justify-center font-heading font-bold text-sm shrink-0 shadow-sm">3</div>
+                        <div>
+                            <h3 class="font-heading font-bold text-slate-800 dark:text-white text-base">สถานการณ์: ตรวจสอบแหล่งที่มาก่อนส่งต่อบทความ</h3>
+                            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm mt-1 leading-relaxed">
+                                นักเรียนอ่านพบข่าวเตือนภัยเรื่องพายุเข้ากะทันหัน จึงเช็กความถูกต้องที่เว็บไซต์กรมอุตุนิยมวิทยาก่อนแชร์ลงกลุ่มไลน์ครอบครัว
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3 pt-2">
+                        <button onclick="checkScenario(3, 'risk')" class="px-4 py-2 bg-rose-100 dark:bg-rose-950/80 hover:bg-rose-200 dark:hover:bg-rose-900 text-rose-800 dark:text-rose-200 font-heading font-bold text-xs rounded-xl transition flex items-center space-x-1.5">
+                            <i class="fas fa-triangle-exclamation"></i>
+                            <span>เสี่ยงภัย</span>
+                        </button>
+                        <button onclick="checkScenario(3, 'safe')" class="px-4 py-2 bg-emerald-100 dark:bg-emerald-950/80 hover:bg-emerald-200 dark:hover:bg-emerald-900 text-emerald-800 dark:text-emerald-200 font-heading font-bold text-xs rounded-xl transition flex items-center space-x-1.5">
+                            <i class="fas fa-shield-check"></i>
+                            <span>ปลอดภัย & เหมาะสม</span>
+                        </button>
+                    </div>
+                    <div id="scen-res-3" class="hidden mt-4 p-3.5 rounded-2xl text-xs"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="board" class="py-12 lg:py-16 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="px-3 py-1 bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 text-xs font-heading font-bold rounded-full">Pastel Discussion Board</span>
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold text-slate-800 dark:text-white mt-2">กระดานแลกเปลี่ยนเรียนรู้ก่อนเข้าคาบ</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-1">บอก 1 วิธีที่นักเรียนใช้ปกป้องตนเองจากภัยบนโลกออนไลน์</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Post Input Form -->
+                <div class="lg:col-span-5 bg-pastel-50/60 dark:bg-slate-950 p-6 rounded-3xl border border-pastel-200 dark:border-slate-800 h-fit shadow-sm">
+                    <h3 class="font-heading font-bold text-slate-800 dark:text-white text-base mb-4 flex items-center">
+                        <i class="fas fa-pen-to-square text-pastel-600 dark:text-pastel-400 mr-2"></i> ร่วมโพสต์ความคิดเห็น
+                    </h3>
+                    <form id="discussion-form" onsubmit="postComment(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-heading font-semibold text-slate-700 dark:text-slate-300 mb-1">ชื่อ-นามสกุล / ชื่อเล่น (ม.1):</label>
+                            <input type="text" id="post-author" placeholder="เช่น ด.ช. ปัญญา ม.1/2" required class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:border-pastel-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-heading font-semibold text-slate-700 dark:text-slate-300 mb-1">วิธีปกป้องตนเองบนโลกออนไลน์:</label>
+                            <textarea id="post-content" rows="3" placeholder="เช่น ไม่บอกรหัสผ่านให้เพื่อนรู้, ตั้งรหัสที่มีตัวเลขผสมอักษร..." required class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:border-pastel-400"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-pastel-500 hover:bg-pastel-600 text-white font-heading font-bold py-2.5 rounded-2xl text-xs sm:text-sm transition shadow-pastel flex items-center justify-center space-x-2">
+                            <i class="fas fa-paper-plane text-xs"></i>
+                            <span>ส่งข้อความลงกระดาน</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Display Post Wall -->
+                <div class="lg:col-span-7 space-y-4">
+                    <h3 class="font-heading font-bold text-slate-800 dark:text-white text-base flex items-center justify-between">
+                        <span><i class="fas fa-comments text-pastel-600 dark:text-pastel-400 mr-2"></i> ข้อความจากเพื่อนๆ</span>
+                        <span id="post-count" class="text-xs bg-pastel-100 dark:bg-slate-800 text-pastel-800 dark:text-pastel-300 px-3 py-1 rounded-full font-heading font-bold">2 โพสต์</span>
+                    </h3>
+
+                    <div id="posts-feed" class="space-y-3 max-h-[420px] overflow-y-auto pr-1">
+                        <!-- Pre-populated Sample Posts -->
+                        <div class="bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 p-4 rounded-2xl shadow-sm">
+                            <div class="flex justify-between items-center mb-1.5">
+                                <span class="font-heading font-bold text-slate-800 dark:text-slate-200 text-xs sm:text-sm">ด.ช. ณัฐดนัย ม.1/1</span>
+                                <span class="text-[10px] text-slate-400">10 นาทีที่แล้ว</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
+                                "ผมเปลี่ยนรหัสผ่านเกมทุกๆ 3 เดือนครับ และไม่เคยตั้งรหัสเป็นวันเกิดตัวเองเลยครับ"
+                            </p>
+                        </div>
+
+                        <div class="bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 p-4 rounded-2xl shadow-sm">
+                            <div class="flex justify-between items-center mb-1.5">
+                                <span class="font-heading font-bold text-slate-800 dark:text-slate-200 text-xs sm:text-sm">ด.ญ. กานต์ดา ม.1/3</span>
+                                <span class="text-[10px] text-slate-400">25 นาทีที่แล้ว</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
+                                "เวลามีลิงก์แปลกๆ ส่งมาจะไม่กดเข้าไปเด็ดขาดค่ะ และไม่โพสต์รูปบัตรใดๆ ลงโซเชียลค่ะ"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-10 bg-slate-50/50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-rose-100 dark:bg-rose-950 text-rose-600 dark:text-rose-300 rounded-2xl flex items-center justify-center text-2xl shrink-0 shadow-sm">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-bold text-slate-800 dark:text-white text-base">ใบความรู้สรุป หน่วยการเรียนรู้ที่ 6 (PDF)</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm">ดาวน์โหลดเพื่อนำไปอ่านทบทวนหรือพิมพ์อ่านเพิ่มเติมได้ตลอดเวลา</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3 w-full md:w-auto">
+                    <button onclick="downloadResource()" class="w-full md:w-auto px-5 py-2.5 bg-slate-800 hover:bg-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-heading font-bold text-xs sm:text-sm rounded-2xl transition flex items-center justify-center space-x-2 shadow-sm">
+                        <i class="fas fa-download"></i>
+                        <span>ดาวน์โหลดใบความรู้</span>
+                    </button>
+                    <a href="https://www.etda.or.th" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 bg-pastel-100 dark:bg-slate-800 text-pastel-800 dark:text-pastel-200 font-heading font-medium text-xs sm:text-sm rounded-2xl transition inline-flex items-center space-x-1">
+                        <span>สื่อ ETDA / ThaiCERT</span>
+                        <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="sticky bottom-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-4 py-3 shadow-2xl transition-all">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-6">
+            <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
+                <span class="text-xs font-heading font-bold text-pastel-700 dark:text-pastel-300 flex items-center">
+                    <i class="fas fa-chart-line mr-1.5"></i> ความก้าวหน้าการเรียนรู้:
+                </span>
+                <span id="progress-percentage" class="text-xs font-heading font-bold text-pastel-600 dark:text-pastel-400 bg-pastel-100 dark:bg-slate-800 px-2.5 py-0.5 rounded-full">0%</span>
+            </div>
+
+            <!-- Progress Meter Bar -->
+            <div class="w-full sm:w-1/2 bg-slate-100 dark:bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-200 dark:border-slate-700 p-0.5">
+                <div id="main-progress-bar" class="bg-gradient-to-r from-pastel-400 to-pastel-600 h-full w-0 rounded-full transition-all duration-500"></div>
+            </div>
+
+            <div class="text-[11px] text-slate-400 hidden lg:block font-heading">
+                อ่านบทเรียน ทำควิซ และร่วมตอบคำถาม เพื่อสะสมคะแนน 100%
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2026 รายวิชาเทคโนโลยี (วิทยาการคำนวณ) ชั้นมัธยมศึกษาปีที่ 1 - หน่วยการเรียนรู้ที่ 6 การใช้เทคโนโลยีสารสนเทศอย่างปลอดภัย</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. Pastel Color Themes Presets Definition ---
+        const pastelPresets = {
+            sakura: {
+                50: '#fff1f2', 100: '#ffe4e6', 200: '#fecdd3', 300: '#fda4af', 400: '#fb7185',
+                500: '#f43f5e', 600: '#e11d48', 700: '#be123c', 800: '#9f1239', 900: '#881337',
+                shadow: 'rgba(244, 63, 94, 0.2)', bgAccent: '#fff7f8'
+            },
+            mint: {
+                50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac', 400: '#4ade80',
+                500: '#22c55e', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d',
+                shadow: 'rgba(34, 197, 94, 0.2)', bgAccent: '#f4fbf7'
+            },
+            lavender: {
+                50: '#faf5ff', 100: '#f3e8ff', 200: '#e9d5ff', 300: '#d8b4fe', 400: '#c084fc',
+                500: '#a855f7', 600: '#9333ea', 700: '#7e22ce', 800: '#6b21a8', 900: '#581c87',
+                shadow: 'rgba(168, 85, 247, 0.2)', bgAccent: '#fcf8ff'
+            },
+            sky: {
+                50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8',
+                500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e',
+                shadow: 'rgba(14, 165, 233, 0.2)', bgAccent: '#f5fbfe'
+            },
+            peach: {
+                50: '#fff7ed', 100: '#ffedd5', 200: '#fed7aa', 300: '#fdba74', 400: '#fb923c',
+                500: '#f97316', 600: '#ea580c', 700: '#c2410c', 800: '#9a3412', 900: '#7c2d12',
+                shadow: 'rgba(249, 115, 22, 0.2)', bgAccent: '#fffaf5'
+            },
+            butter: {
+                50: '#fefce8', 100: '#fef9c3', 200: '#fef08a', 300: '#fde047', 400: '#facc15',
+                500: '#eab308', 600: '#ca8a04', 700: '#a16207', 800: '#854d0e', 900: '#713f12',
+                shadow: 'rgba(234, 179, 8, 0.2)', bgAccent: '#fefef5'
+            }
+        };
+
+        function setPastelTheme(presetKey) {
+            const theme = pastelPresets[presetKey] || pastelPresets.sakura;
+            const root = document.documentElement;
+            
+            Object.keys(theme).forEach(key => {
+                if (key !== 'shadow' && key !== 'bgAccent') {
+                    root.style.setProperty(`--pastel-${key}`, theme[key]);
+                }
+            });
+            root.style.setProperty('--pastel-shadow', theme.shadow);
+            root.style.setProperty('--pastel-bg-accent', theme.bgAccent);
+
+            // Hide color palette menu
+            document.getElementById('color-menu').classList.add('hidden');
+        }
+
+        function toggleColorMenu() {
+            const menu = document.getElementById('color-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-mode-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fas fa-sun text-base text-amber-500';
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fas fa-moon text-base text-purple-300';
+            }
+        }
+
+        // --- 2. Mobile Nav Toggle ---
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // --- 3. Learning Progress Tracker ---
+        let userProgress = {
+            lessons: [false, false, false, false],
+            quizCompleted: false,
+            discussionPosted: false
+        };
+
+        function updateMasterProgress() {
+            let totalTasks = 6;
+            let completedTasks = 0;
+
+            userProgress.lessons.forEach(status => { if (status) completedTasks++; });
+            if (userProgress.quizCompleted) completedTasks++;
+            if (userProgress.discussionPosted) completedTasks++;
+
+            let percentage = Math.round((completedTasks / totalTasks) * 100);
+            document.getElementById('progress-percentage').innerText = percentage + '%';
+            document.getElementById('main-progress-bar').style.width = percentage + '%';
+        }
+
+        function markLessonComplete(lessonIndex) {
+            userProgress.lessons[lessonIndex - 1] = true;
+            const btn = document.getElementById(`btn-lesson-${lessonIndex}`);
+            if (btn) {
+                btn.className = "text-xs bg-emerald-500 text-white font-heading font-bold px-4 py-2 rounded-xl transition shadow-sm";
+                btn.innerHTML = '<i class="fas fa-check-double mr-1"></i> อ่านเรียบร้อยแล้ว';
+            }
+            updateMasterProgress();
+        }
+
+        // --- 4. Interactive Password Strength Checker ---
+        function togglePassVisibility() {
+            const input = document.getElementById('pass-input');
+            const icon = document.getElementById('pass-eye');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        }
+
+        function checkPasswordStrength() {
+            const val = document.getElementById('pass-input').value;
+            const meter = document.getElementById('pass-meter');
+            const scoreText = document.getElementById('pass-score-text');
+
+            const ruleLength = document.getElementById('rule-length');
+            const ruleUpper = document.getElementById('rule-upper');
+            const ruleNumber = document.getElementById('rule-number');
+            const ruleSpecial = document.getElementById('rule-special');
+
+            let score = 0;
+
+            if (val.length >= 8) {
+                score++;
+                ruleLength.className = 'text-emerald-400 flex items-center space-x-1 font-medium';
+            } else {
+                ruleLength.className = 'text-slate-500 flex items-center space-x-1';
+            }
+
+            if (/[A-Z]/.test(val)) {
+                score++;
+                ruleUpper.className = 'text-emerald-400 flex items-center space-x-1 font-medium';
+            } else {
+                ruleUpper.className = 'text-slate-500 flex items-center space-x-1';
+            }
+
+            if (/[0-9]/.test(val)) {
+                score++;
+                ruleNumber.className = 'text-emerald-400 flex items-center space-x-1 font-medium';
+            } else {
+                ruleNumber.className = 'text-slate-500 flex items-center space-x-1';
+            }
+
+            if (/[!@#$%^&*(),.?":{}|<>_]/.test(val)) {
+                score++;
+                ruleSpecial.className = 'text-emerald-400 flex items-center space-x-1 font-medium';
+            } else {
+                ruleSpecial.className = 'text-slate-500 flex items-center space-x-1';
+            }
+
+            if (val.length === 0) {
+                meter.style.width = '0%';
+                meter.className = 'h-full bg-slate-600 transition-all duration-300';
+                scoreText.innerText = 'กรุณาพิมพ์รหัสผ่าน';
+                scoreText.className = 'font-bold text-slate-300';
+            } else if (score <= 1) {
+                meter.style.width = '25%';
+                meter.className = 'h-full bg-rose-400 transition-all duration-300';
+                scoreText.innerText = 'อ่อนมาก (เสี่ยงภัยสูง)';
+                scoreText.className = 'font-bold text-rose-300';
+            } else if (score === 2 || score === 3) {
+                meter.style.width = '65%';
+                meter.className = 'h-full bg-amber-400 transition-all duration-300';
+                scoreText.innerText = 'ปานกลาง (พอใช้)';
+                scoreText.className = 'font-bold text-amber-300';
+            } else if (score === 4) {
+                meter.style.width = '100%';
+                meter.className = 'h-full bg-emerald-400 transition-all duration-300';
+                scoreText.innerText = 'แข็งแกร่ง ปลอดภัยสูง!';
+                scoreText.className = 'font-bold text-emerald-300';
+            }
+        }
+
+        // --- 5. Pre-test Quiz Data & Engine ---
+        const quizData = [
+            {
+                q: "1. ข้อใดจัดเป็นภัยคุกคามประเภท 'Phishing' (หลอกลวงเอาข้อมูล)?",
+                options: [
+                    "ก) ไวรัสคอมพิวเตอร์ที่สั่งลบไฟล์งาน",
+                    "ข) ข้อความแอบอ้างเป็นธนาคารหลอกให้กรอกรหัสผ่าน",
+                    "ค) การโพสต์ด่าทอเพื่อนในสื่อสังคมออนไลน์",
+                    "ง) การเปิดคอมพิวเตอร์ทิ้งไว้จนเครื่องร้อน"
+                ],
+                answer: 1,
+                explain: "Phishing คือการสร้างหน้าเว็บหรือส่งข้อความปลอมเพื่อหลอกเอาข้อมูลสำคัญ เช่น รหัสผ่าน หรือรหัส OTP"
+            },
+            {
+                q: "2. ข้อมูลชนิดใดต่อไปนี้ที่ **ไม่ควร** โพสต์ลงในสื่อสังคมออนไลน์สาธารณะเด็ดขาด?",
+                options: [
+                    "ก) รูปภาพสถานที่ท่องเที่ยวในวันหยุด",
+                    "ข) ชื่อของสัตว์เลี้ยงที่บ้าน",
+                    "ค) ภาพถ่ายบัตรประจำตัวประชาชน",
+                    "ง) ความคิดเห็นเกี่ยวกับภาพยนตร์เรื่องโปรด"
+                ],
+                answer: 2,
+                explain: "เลขบัตรประชาชนเป็นข้อมูลส่วนบุคคลที่มีความไว้วางใจสูง หากหลุดไปอาจถูกมิจฉาชีพสวมรอยกระทำความผิด"
+            },
+            {
+                q: "3. รหัสผ่านในข้อใด มีความปลอดภัยสูงที่สุดตามหลักการสร้าง Strong Password?",
+                options: [
+                    "ก) 12345678",
+                    "ข) mybirthday2012",
+                    "ค) Password@1",
+                    "ง) S3cur3#Pass2026"
+                ],
+                answer: 3,
+                explain: "S3cur3#Pass2026 มีความยาวเกิน 8 ตัวอักษร ผสมทั้งอักษรพิมพ์ใหญ่ พิมพ์เล็ก ตัวเลข และอักขระพิเศษ (#)"
+            },
+            {
+                q: "4. หากนักเรียนพบเห็นข่าวที่น่าตื่นตระหนกบนสื่อสังคมออนไลน์ ควรปฏิบัติตามข้อใดเป็นอันดับแรก?",
+                options: [
+                    "ก) รีบแชร์ลงกลุ่มเพื่อนทันทีเพื่อเตือนภัย",
+                    "ข) ตรวจสอบความถูกต้องจากสำนักข่าวที่น่าเชื่อถือหรือหน่วยงานรัฐก่อน",
+                    "ค) เขียนข้อความต่อว่าบุคคลในข่าวทันที",
+                    "ง) บล็อกคนที่ส่งข่าวมาทันที"
+                ],
+                answer: 1,
+                explain: "พลเมืองดิจิทัลที่ดีควรตรวจสอบความถูกต้อง (Fact-check) จากแหล่งข่าวที่เป็นทางการก่อนกดแชร์เสมอเพื่อระงับข่าวปลอม"
+            },
+            {
+                q: "5. การกระทำในข้อใดถือเป็นการเคารพ 'ลิขสิทธิ์' ผลงานของผู้อื่น?",
+                options: [
+                    "ก) คัดลอกบทความมาลงเว็บตนเองโดยบอกว่าเขียนเอง",
+                    "ข) นำรูปภาพมาใช้งานพร้อมระบุลิงก์อ้างอิงแหล่งที่มา",
+                    "ค) ดัดแปลงเพลงของผู้อื่นแล้วขายต่อ",
+                    "ง) นำภาพถ่ายคนอื่นมาตัดต่อตลกๆ โดยไม่ขออนุญาต"
+                ],
+                answer: 1,
+                explain: "การระบุแหล่งที่มา (Credit/Citation) เป็นการแสดงความเคารพต่อสิทธิและผลงานของผู้สร้างสรรค์"
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let userQuizAnswers = new Array(quizData.length).fill(null);
+
+        function renderQuizQuestion() {
+            const current = quizData[currentQuizIndex];
+            document.getElementById('quiz-question-number').innerText = `ข้อที่ ${currentQuizIndex + 1} จาก ${quizData.length}`;
+            document.getElementById('quiz-question').innerText = current.q;
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            current.options.forEach((opt, idx) => {
+                const isSelected = userQuizAnswers[currentQuizIndex] === idx;
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-3.5 rounded-2xl border text-xs sm:text-sm transition font-medium flex items-center justify-between ${
+                    isSelected ? 'bg-pastel-100 dark:bg-slate-800 border-pastel-400 text-pastel-900 dark:text-pastel-200 shadow-sm font-bold' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
+                }`;
+                btn.onclick = () => selectQuizOption(idx);
+                btn.innerHTML = `
+                    <span>${opt}</span>
+                    ${isSelected ? '<i class="fas fa-circle-check text-pastel-600 text-base"></i>' : '<i class="far fa-circle text-slate-300 dark:text-slate-600 text-base"></i>'}
+                `;
+                optionsContainer.appendChild(btn);
+            });
+
+            // Update Answer Feedback
+            const feedback = document.getElementById('quiz-feedback');
+            if (userQuizAnswers[currentQuizIndex] !== null) {
+                const isCorrect = userQuizAnswers[currentQuizIndex] === current.answer;
+                feedback.classList.remove('hidden');
+                feedback.className = `p-4 rounded-2xl text-xs sm:text-sm border ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300' : 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300'}`;
+                feedback.innerHTML = `
+                    <div class="font-heading font-bold mb-1 flex items-center">
+                        <i class="${isCorrect ? 'fas fa-circle-check text-emerald-600' : 'fas fa-circle-xmark text-rose-600'} mr-2 text-base"></i>
+                        ${isCorrect ? 'ถูกต้อง!' : 'ยังไม่ถูกต้อง!'}
+                    </div>
+                    <div>${current.explain}</div>
+                `;
+            } else {
+                feedback.classList.add('hidden');
+            }
+
+            document.getElementById('btn-prev-q').disabled = currentQuizIndex === 0;
+            const nextBtn = document.getElementById('btn-next-q');
+            if (currentQuizIndex === quizData.length - 1) {
+                nextBtn.innerHTML = 'ตรวจผลคะแนน <i class="fas fa-check-double ml-1"></i>';
+                nextBtn.className = 'px-5 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs sm:text-sm font-heading font-bold transition shadow-sm';
+            } else {
+                nextBtn.innerHTML = 'ข้อถัดไป <i class="fas fa-chevron-right ml-1"></i>';
+                nextBtn.className = 'px-5 py-2 bg-pastel-500 hover:bg-pastel-600 text-white rounded-xl text-xs sm:text-sm font-heading font-bold transition shadow-pastel';
+            }
+
+            calculateScoreDisplay();
+        }
+
+        function selectQuizOption(optionIdx) {
+            userQuizAnswers[currentQuizIndex] = optionIdx;
+            renderQuizQuestion();
+        }
+
+        function navigateQuiz(dir) {
+            if (dir === 1 && currentQuizIndex === quizData.length - 1) {
+                finishQuiz();
+                return;
+            }
+            currentQuizIndex += dir;
+            if (currentQuizIndex < 0) currentQuizIndex = 0;
+            if (currentQuizIndex >= quizData.length) currentQuizIndex = quizData.length - 1;
+            renderQuizQuestion();
+        }
+
+        function calculateScoreDisplay() {
+            let score = 0;
+            userQuizAnswers.forEach((ans, idx) => {
+                if (ans === quizData[idx].answer) score++;
+            });
+            document.getElementById('quiz-score-display').innerText = `คะแนนปัจจุบัน: ${score}`;
+            return score;
+        }
+
+        function finishQuiz() {
+            let finalScore = calculateScoreDisplay();
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            document.getElementById('quiz-summary').classList.remove('hidden');
+            document.getElementById('final-score-text').innerText = `${finalScore} / ${quizData.length}`;
+
+            let evalMsg = "";
+            if (finalScore === 5) {
+                evalMsg = "ยอดเยี่ยมมาก! คุณมีความเข้าใจเต็ม 100% พร้อมสำหรับคาบเรียนนี้";
+            } else if (finalScore >= 3) {
+                evalMsg = "เก่งมาก! คุณมีความรู้พื้นฐานที่ดี พร้อมเรียนรู้เพิ่มเติมในชั้นเรียน";
+            } else {
+                evalMsg = "พยายามได้ดี! แนะนำให้ลองอ่านทบทวนบทเรียนพาสเทลอีกครั้งเพื่อความมั่นใจครับ";
+            }
+            document.getElementById('quiz-eval-msg').innerText = evalMsg;
+
+            userProgress.quizCompleted = true;
+            updateMasterProgress();
+        }
+
+        function resetQuiz() {
+            currentQuizIndex = 0;
+            userQuizAnswers = new Array(quizData.length).fill(null);
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('quiz-summary').classList.add('hidden');
+            renderQuizQuestion();
+        }
+
+        // --- 6. Risk Checker Scenarios ---
+        function checkScenario(scenNum, choice) {
+            const resDiv = document.getElementById(`scen-res-${scenNum}`);
+            resDiv.classList.remove('hidden');
+
+            if (scenNum === 1) {
+                if (choice === 'risk') {
+                    resDiv.className = "mt-4 p-3.5 rounded-2xl text-xs bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800";
+                    resDiv.innerHTML = "<strong><i class='fas fa-check-circle mr-1'></i> ตอบถูกต้อง!</strong> ข้อความ SMS แนบลิงก์แจกเงินฟรี มักเป็น Phishing ของมิจฉาชีพ เพื่อหลอกขโมยข้อมูลหรือเงิน";
+                } else {
+                    resDiv.className = "mt-4 p-3.5 rounded-2xl text-xs bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800";
+                    resDiv.innerHTML = "<strong><i class='fas fa-times-circle mr-1'></i> ยังไม่ถูกต้อง!</strong> การกดลิงก์แปลกปลอม อาจทำให้เครื่องติดมัลแวร์หรือถูกหลอกเอาข้อมูลได้ง่าย";
+                }
+            } else if (scenNum === 2) {
+                if (choice === 'risk') {
+                    resDiv.className = "mt-4 p-3.5 rounded-2xl text-xs bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800";
+                    resDiv.innerHTML = "<strong><i class='fas fa-check-circle mr-1'></i> ตอบถูกต้อง!</strong> บัตรสอบมีเลขบัตรประชาชน 13 หลัก ไม่ควรโพสต์เผยแพร่ต่อสาธารณะ";
+                } else {
+                    resDiv.className = "mt-4 p-3.5 rounded-2xl text-xs bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800";
+                    resDiv.innerHTML = "<strong><i class='fas fa-times-circle mr-1'></i> ยังไม่ถูกต้อง!</strong> เลขบัตรประชาชนอาจถูกนำไปสวมรอยเปิดเบอร์มือถือหรือบัญชีม้าได้";
+                }
+            } else if (scenNum === 3) {
+                if (choice === 'safe') {
+                    resDiv.className = "mt-4 p-3.5 rounded-2xl text-xs bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800";
+                    resDiv.innerHTML = "<strong><i class='fas fa-check-circle mr-1'></i> ตอบถูกต้อง!</strong> การตรวจสอบข้อมูลกับหน่วยงานต้นทาง (เช่น กรมอุตุนิยมวิทยา) ก่อนแชร์ เป็นพฤติกรรมที่ดีเยี่ยม";
+                } else {
+                    resDiv.className = "mt-4 p-3.5 rounded-2xl text-xs bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800";
+                    resDiv.innerHTML = "<strong><i class='fas fa-times-circle mr-1'></i> ยังไม่ถูกต้อง!</strong> การเช็กความจริงก่อนส่งต่อช่วยหยุดยั้งการแพร่กระจายของข่าวปลอมได้ดีที่สุด";
+                }
+            }
+        }
+
+        // --- 7. Discussion Board Logic ---
+        function postComment(e) {
+            e.preventDefault();
+            const author = document.getElementById('post-author').value.trim();
+            const content = document.getElementById('post-content').value.trim();
+
+            if (!author || !content) return;
+
+            const feed = document.getElementById('posts-feed');
+            const newPost = document.createElement('div');
+            newPost.className = "bg-pastel-50/80 dark:bg-slate-950 border border-pastel-200 dark:border-slate-800 p-4 rounded-2xl shadow-sm transition";
+            newPost.innerHTML = `
+                <div class="flex justify-between items-center mb-1.5">
+                    <span class="font-heading font-bold text-pastel-900 dark:text-pastel-200 text-xs sm:text-sm">${escapeHTML(author)}</span>
+                    <span class="text-[10px] text-pastel-700 dark:text-pastel-300 font-bold bg-pastel-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">เมื่อครู่นี้</span>
+                </div>
+                <p class="text-slate-700 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    "${escapeHTML(content)}"
+                </p>
+            `;
+
+            feed.prepend(newPost);
+            document.getElementById('post-content').value = '';
+
+            const currentCount = feed.children.length;
+            document.getElementById('post-count').innerText = `${currentCount} โพสต์`;
+
+            userProgress.discussionPosted = true;
+            updateMasterProgress();
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+
+        // --- 8. File Download Handler ---
+        function downloadResource() {
+            alert('ระบบกำลังจัดเตรียมไฟล์ PDF "หน่วยที่ 6 การใช้เทคโนโลยีสารสนเทศอย่างปลอดภัย (Pastel Edition).pdf" สำหรับดาวน์โหลด');
+        }
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            setPastelTheme('sakura'); // Default to Pastel Sakura theme
+            renderQuizQuestion();
+            updateMasterProgress();
+        };
+    </script>
+</body>
+</html>
